@@ -1,31 +1,31 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <map>
 using namespace std;
-//using ll = long long;
 
-int main(){
-    int N, C;
-    cin >>N>>C;
-    vector<pair<int, int> > event;
-    //Nはサービスの個数
+int main(void){
+    int N;
+    long long C;
+    cin>>N>>C;
+    long long a,b,c;
+    vector<pair <long long, long long> > event;
     for(int i=0;i<N;i++){
-        int a,b,c;
-        cin >>a>>b>>c;
-        event.emplace_back(a-1, c);
-        event.emplace_back(b, -c);
+        cin>>a>>b>>c;
+        event.push_back(make_pair(a-1,c));
+        event.push_back(make_pair(b,-c));
     }
     sort(event.begin(), event.end());
-    //cout << event.begin()<<endl;
-    int ans=0, fee=0, t=0;
+
+    long long day=0, s=0, k=0;
     for(auto [x,y] : event){
-        //同日の話ならスルー
-        if(x!=t){
-            ans+=min(C, fee)*(x-t);
-            t=x;
+        //x日目に払う料金が決まる
+        if(x!=day){
+            s+=min(k, C)*(x-day);
+            day=x;
         }
-        //次の日に発生する料金、1日前に料金upの設定
-        fee+=y;
+        k+=y;
     }
-    cout <<ans<<endl;
-    return 0;
+    cout << s<<endl;
+    return 0;   
 }
