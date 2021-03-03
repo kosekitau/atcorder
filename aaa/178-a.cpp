@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 int main(){
-    string s;
-    cin>>s;
-    if(s[s.size()-1]=='s') cout << s<<"es"<<endl;
-    else cout << s<<"s"<<endl;
+    int x;
+    cin>>x;
+    if(x==0) cout << 1<<endl;
+    else cout << 0<<endl;
     return 0;
 }
