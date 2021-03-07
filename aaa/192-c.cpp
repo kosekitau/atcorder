@@ -1,49 +1,45 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
 #include <math.h>
 using namespace std;
 
-int g1(string n){
-    vector <int>s;
-    for(int i=0;i<n.size();i++){
-        s.push_back(n[i]-'0');
+int g1(int n){
+    int a[10]={0};
+    
+    for(int i=0;n>0;i++){
+        a[n%10]++;
+        n/=10;
     }
-    sort(s.begin(), s.end(), greater<int>());
-    int r=0;
-    for(int i=0;i<n.size();i++){
-        r+=s[i]*pow(10, (n.size()-i-1));
+    int g=0, s=0;
+    for(int i=0;i<10;i++){
+        for(;a[i]>0;s++,a[i]--){
+            g+=i*pow(10,s);
+        }
     }
-    return r;
+    return g;
 }
 
-int g2(string n){
-    vector <int>s;
-    for(int i=0;i<n.size();i++){
-        s.push_back(n[i]-'0');
+int g2(int n){
+    int a[10]={0};
+    for(int i=0;n>0;i++){
+        a[n%10]++;
+        n/=10;
     }
-    sort(s.begin(), s.end());
-    int r=0;
-    for(int i=0;i<n.size();i++){
-        r+=s[i]*pow(10, (n.size()-i-1));
+    int g=0, s=0;
+    for(int i=9;i>=0;i--){
+        for(;a[i]>0;s++,a[i]--){
+            g+=i*pow(10,s);
+        }
     }
-    return r;
+    return g;
 }
 
 int main(){
-    int k;
-    string n;
-    vector <string> a(100000);
+    int k,n;
     cin>>n>>k;
-    a[0]=n;
-    for(int i=1;i<=k;i++){
-        a[i]=g1(a[i-1])-g2(a[i-1]);
+    int f=n;
+    for(int i=0;i<k;i++){
+        f=g1(f)-g2(f);
     }
-    cout<<a[k]<<endl;
-    int s;
-    for(int i=0;i<n.size();i++){
-        s+=pow(10, (n.size()-i-1)) * (a[k][i]-'0');
-    }
-    cout<< s<<endl;
+    cout<<f<<endl;
     return 0;
 }
