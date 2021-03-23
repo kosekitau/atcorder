@@ -7,39 +7,22 @@
 #include <map>
 #include <set>
 using namespace std;
-vector <string> field;
-bool seen[510][510];
-int dx[4]={1,0,-1,0}, dy[4]={0,-1,0,1};
 
-int H, W;
-int sh,sw,gh,gw;
-
-void dfs(int h, int w){
-    seen[h][w]=true;
-    for(int i=0;i<4;i++){
-        int next_h=h+dx[i];
-        int next_w=w+dy[i];
-        if(next_w>=W || next_w<0 || next_h>=H || next_h<0) continue;
-        if(field[next_h][next_w]=='#') continue;
-        if(seen[next_h][next_w]) continue;
-        dfs(next_h, next_w);
-    }
-}
+const int INF = 1<<29; 
 
 int main(){
-    cin>>H>>W;
-    field.resize(H);
-    for(int i=0;i<H;i++) cin>>field[i];
+    string S, T;
     
-    for(int i=0;i<H;i++){
-        for(int j=0;j<W;j++){
-            if(field[i][j]=='s') sh=i, sw=j;
-            if(field[i][j]=='g') gh=i, gw=j;
+    int dp[1010][1010];
+    cin>>S>>T;
+    memset(dp, 0, sizeof(dp));
+
+    for(int i=0;i<S.size();i++){
+        for(int j=0;j<T.size();j++){
+            if(S[i]==T[j]) dp[i+1][j+1]=dp[i][j]+1;
+            else dp[i+1][j+1]=max(dp[i+1][j], dp[i][j+1]);
         }
     }
-    memset(seen, 0, sizeof(seen));
-    dfs(sh, sw);
-    if(seen[gh][gw]) cout<<"Yes"<<endl;
-    else cout<<"No"<<endl;
+    cout<<dp[S.size()][T.size()]<<endl;
     return 0;
 }
