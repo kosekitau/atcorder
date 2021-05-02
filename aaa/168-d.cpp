@@ -38,6 +38,20 @@ void dijkstra(int s){
 }
 
 int main(){
+    int n,m;
+    cin>>n>>m;
+    V=n;
+    for(int i=0;i<m;i++){
+        int a,b; cin>>a>>b;
+        a--; b--;
+        G[a].push_back({b, 1});
+        G[b].push_back({a, 1});
+    }
+
+    dijkstra(0);
+    for(int i=0;i<n;i++){
+        cout<<d[i]<<endl;
+    }
 
     return 0;
 }
