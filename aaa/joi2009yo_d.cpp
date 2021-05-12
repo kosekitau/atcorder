@@ -1,3 +1,4 @@
+//https://atcoder.jp/contests/joi2009yo/tasks/joi2009yo_d
 #include <iostream>
 #include <cstring>
 #include <vector>
@@ -10,20 +11,10 @@ int m, n, mxs=0;
 void dfs(int x, int y, int s){
     int r=s+1, a;
     cice[x][y]=1;
-    //cout<<r<<' '<<x<<' '<<y<<endl;
-    /*for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            cout<<cice[i][j];
-        }
-        cout<<endl;
-    }*/
-
+    
     for(int i=0;i<4;i++){
         int nx=x+dx[i], ny=y+dy[i];
-        if(ice[nx][ny]==1 && nx>=0 && m>nx && ny>=0 && n>ny && cice[nx][ny]==0){
-            //cout<<"x: "<<x<<", y: "<<y<<endl;
-            //cout<<"nx: "<<nx<<", ny: "<<ny<<endl;
-            //cout<<"i: "<<i<<endl<<endl;
+        if(ice[nx][ny]==1 && nx>=0 && n>nx && ny>=0 && m>ny && cice[nx][ny]==0){
             dfs(nx, ny, r);
         }
     }
