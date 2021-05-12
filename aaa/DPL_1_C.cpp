@@ -1,4 +1,4 @@
-//https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_B&lang=ja
+//https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_C&lang=ja
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
@@ -17,7 +17,7 @@ int main(){
     
     for(int i=0;i<N;i++){
         for(int j=0;j<=W;j++){
-            if(j>=w[i]) dp[i+1][j]=max(dp[i][j], dp[i][j-w[i]]+v[i]);
+            if(j>=w[i]) dp[i+1][j]=max(dp[i][j], dp[i+1][j-w[i]]+v[i]);
             else dp[i+1][j]=dp[i][j];
         }
     }
