@@ -5,14 +5,14 @@
 #include <math.h>
 #include <vector>
 using namespace std;
+using ll = long long;
+using Graph = vector<vector<int> >;
+#define MAX_A 1010
 
 int main(){
-    vector <pair<int, string> >S;
-    
-    for(int i=0;i<4;i++){
-        cin>>S[i];
-
-    sort()
-
+    int a,b;
+    cin>>a>>b;
+    if(a==b) cout<<a<<endl;
+    else cout<<3-(a+b)<<endl;
     return 0;
 }
