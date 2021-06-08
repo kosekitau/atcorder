@@ -1,62 +1,40 @@
 #include <iostream>
 #include <cstdio>
+#include <cstring>
 #include <algorithm>
+#include <math.h>
+#include <vector>
 using namespace std;
+using ll = long long;
+using Graph = vector<vector<int> >;
+#define MAX_A 1010
 
-int par[1000];//親、iの親はpar[i]である
-int depth[1000];//木の深さ
+bool tmp[2010];
+Graph AB;
 
-//n要素で初期化
-void init(int n){
-    for(int i=0;i<n;i++){
-        //各数字を親にする、深さはそれぞれ0
-        par[i]=i;
-        depth[i]=0;
-    }
-}
-
-//木の根を求める
-int find(int x){
-    if(par[x]==x){
-        return x;//xは親である
-    }
-    else{
-        //辿ったノード全てを親に春
-        return par[x]=find(par[x]);
-    }
-}
-
-//xとyの属する要素を併合する
-void unite(int x, int y){
-    x=find(x);
-    y=find(y);
-    if(x==y) return;
-    par[y]=x;
-   
-}
-
-//xとyが同じ集合か
-bool same(int x, int y){
-    return find(x)==find(y);
+void dfs(int n){
+    if(tmp[n]) return;
+    tmp[n]=true;
+    for(auto x: AB[n]) dfs(x);
 }
 
 int main(){
     int n, m;
     cin>>n>>m;
-    int a[2010], b[2010];
-    for(int i=0;i<m;i++) cin>>a[i]>>b[i];
-
+    AB.resize(n);
     for(int i=0;i<m;i++){
-        unite(a[i], b[i]);
+        int a, b;
+        cin>>a>>b;
+        AB[a-1].push_back(b-1);
     }
-
+    
     int s=0;
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=n;j++){
-            if(same(i, j)) s++;
-        }
+    for(int i=0;i<n;i++){
+        memset(tmp, 0, sizeof(tmp));
+        dfs(i);
+        for(int j=0;j<n;j++) if(tmp[j]) s++;
     }
-    cout<<s<<endl;
 
+    cout<<s<<endl;
     return 0;
 }
