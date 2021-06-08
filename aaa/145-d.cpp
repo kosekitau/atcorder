@@ -26,10 +26,10 @@ int main(){
     ll s=1;
     cin>>x>>y;
 
-    ll AA=0,BB=0;
-    for(int a=1;a<=x;a++){
+    ll AA=1,BB=1;
+    for(int a=0;a<=x;a++){
         int b=x-a;
-        if(b%2==1) continue;
+        if(b%2) continue;
         b=b/2;
         if(2*a+b == y){
             for(int i=1;i<=a+b;i++){
