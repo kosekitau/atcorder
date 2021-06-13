@@ -16,6 +16,7 @@ int INF = 100000000;
 
 //始点sから各頂点への最短距離を求める
 void dijkstra(int s){
+    //P型の優先度付きque、昇順
     priority_queue<P, vector<P>, greater<P> > que;
     fill(d, d+V, INF);//とりあえず全点の最短距離をINFに
     d[s]=0;//0は0に
@@ -38,6 +39,14 @@ void dijkstra(int s){
 }
 
 int main(){
+    edge e={2,10};
+    G[0].push_back({2,10});
+    cout<<G[0].size()<<endl;
 
+    vector <int> v;
+    v[0].push_back(1);
+    v[1].push_back(10);
+    v[1].push_back(100);
+    cout<<v[1].size();
     return 0;
 }
