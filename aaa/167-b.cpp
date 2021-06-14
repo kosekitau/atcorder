@@ -10,18 +10,19 @@ using Graph = vector<vector<int> >;
 #define MAX_A 1010
 
 int main(){
-    string s,t;
-    cin>>s>>t;
-    for(int i=0;i<s.size();i++){
-        if(s[i]!=t[i]){
-            cout<<"No"<<endl;
-            return 0;
+    int k,abc[3];
+    cin>>abc[0]>>abc[1]>>abc[2]>>k;
+    int s=0;
+    for(int i=0;i<3;i++){
+        if(abc[i]<k){
+            s+=(1-i)*abc[i];
+            k-=abc[i];
+        }
+        else{
+            s+=k*(1-i);
+            break;
         }
     }
-    if(s.size()+1 != t.size()){
-        cout<<"No"<<endl;
-        return 0;
-    }
-    cout<<"Yes"<<endl;
+    cout<<s<<endl;
     return 0;
 }
