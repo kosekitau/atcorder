@@ -7,7 +7,7 @@
 using namespace std;
 
 struct edge{ int to, cost; };
-typedef pair<int, int> P;//最短距離と、頂点の番号
+typedef pair<int, int> P;//最短と思われる距離と、頂点の番号
 
 int V;
 vector<edge> G[50];
@@ -17,9 +17,10 @@ int INF = 100000000;
 //始点sから各頂点への最短距離を求める
 void dijkstra(int s){
     //P型の優先度付きque、昇順
+    //最小の最短距離を優先度付きで追加していき競わせる
     priority_queue<P, vector<P>, greater<P> > que;
     fill(d, d+V, INF);//とりあえず全点の最短距離をINFに
-    d[s]=0;//0は0に
+    d[s]=0;//startは0に
     que.push(P(0, s));
 
     while(!que.empty()){
