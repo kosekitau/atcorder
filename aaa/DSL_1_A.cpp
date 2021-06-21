@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
 int par[1000];//親、iの親はpar[i]である
@@ -22,7 +23,8 @@ int find(int x){
     }
     else{
         //辿ったノード全てを親に春
-        return par[x]=find(par[x]);
+        par[x]=find(par[x]);
+        return par[x];
     }
 }
 
@@ -31,7 +33,7 @@ void unite(int x, int y){
     x=find(x);
     y=find(y);
     if(x==y) return;
-    //yの方が根が深い、深い奴の方がえらい
+    //yの方が根が深い
     if(depth[x]<depth[y]){
         //xの親はyになる
         par[x]=y;
@@ -47,5 +49,22 @@ bool same(int x, int y){
 }
 
 int main(){
+    int n, q;
+    cin>>n>>q;
+    init(n);
+    vector<int> r;
+    for(int i=0;i<q;i++){
+        int com, x, y;
+        cin>>com>>x>>y;
+        if(com){
+            if(same(x, y)) r.push_back(1);
+            else r.push_back(0); 
+        }
+        else {
+            unite(x, y);
+        }
+    }
+
+    for(auto x: r ) cout<<x<<endl;
     return 0;
 }
