@@ -4,8 +4,8 @@
 #include <vector>
 using namespace std;
 
-int par[1000];//親、iの親はpar[i]である
-int depth[1000];//木の深さ
+int par[10000];//親、iの親はpar[i]である
+int depth[10000];//木の深さ
 
 //n要素で初期化
 void init(int n){

@@ -28,6 +28,7 @@ int find(int x){
 
 //xとyの属する要素を併合する
 void unite(int x, int y){
+    //xとyの親を戦わせる
     x=find(x);
     y=find(y);
     if(x==y) return;
