@@ -15,17 +15,20 @@ using P = pair<int, int>;
 int main(){
     int n, m;
     cin>>n>>m;
-    int C[1010], D[1010], dp[1010][1010];
-    for(int i=0;i<n;i++) cin>>D[i];
-    for(int i=0;i<m;i++) cin>>C[i];
+    int joi[100010], d[100010], J[100010];
 
-    for(int i=0;i<m;i++) for(int j=0;j<n;j++) dp[i][j]=INF;
+    for(int i=2;i<=n;i++) cin>>joi[i];
+    for(int i=0;i<m;i++) cin>>d[i];
+
+    J[2]=joi[2];
+    for(int i=3;i<=n;i++) J[i]=J[i-1]+joi[i];
+
+    ll s=0;
+    int idx=1;
     for(int i=0;i<m;i++){
-        for(int j=0;j<n;j++){
-            dp[i+1][j] = min(dp[i][j], dp[i][j-1]+C[i]*D[j]);
-        }
+        s=s%100000+abs(J[idx+d[i]] - J[idx])%100000;
+        idx+=d[i];
     }
-
-    cout<<dp[m][n-1]<<endl;
+    cout<<s<<endl;
     return 0;
 }
