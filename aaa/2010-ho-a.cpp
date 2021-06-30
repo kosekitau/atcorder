@@ -20,15 +20,15 @@ int main(){
     for(int i=2;i<=n;i++) cin>>joi[i];
     for(int i=0;i<m;i++) cin>>d[i];
 
-    J[2]=joi[2];
+    J[1] = 0; J[2]=joi[2];
     for(int i=3;i<=n;i++) J[i]=J[i-1]+joi[i];
 
-    ll s=0;
+    int s=0;
     int idx=1;
     for(int i=0;i<m;i++){
         s=s%100000+abs(J[idx+d[i]] - J[idx])%100000;
         idx+=d[i];
     }
-    cout<<s<<endl;
+    cout<<s%100000<<endl;
     return 0;
 }
