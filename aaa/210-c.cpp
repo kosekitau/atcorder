@@ -8,6 +8,7 @@
 #include <functional>
 #include <tuple>
 #include <limits.h>
+#include <map>
 
 using namespace std;
 using ll = long long;
@@ -20,7 +21,8 @@ int main(){
     int n, k;
     cin>>n>>k;
     int c[n];
-    int count[MOD], road[n];
+    int road[n];
+    map<int,int> count; 
     for(int i=0;i<n;i++) count[i]=0;
     
     int m=1;
@@ -47,6 +49,8 @@ int main(){
             a=1;
         }
     }
+    for(int i=0;i<n;i++) cout<<road[i]<<' ';
+    cout<<endl;
     cout<<min(s, k)<<endl;
     return 0;
 }
