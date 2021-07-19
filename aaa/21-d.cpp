@@ -26,16 +26,18 @@ ll modll(ll a, ll n, ll mod){
 }
 
 int main(){
-    ll n, k, l, r;
+    ll n, k, l, r, m;
     cin>>n>>k;
     l=n-1+k;
     r=n-1;
+    m=l-r;
 
-    ll s=1, r2;
+    ll s=1, a=1, b=1;
     for(ll i=1;i<=l;i++){
         s=s*i%MOD;
-        if(i==r) r2=s;
+        if(i==r) a=s;
+        if(i==m) b=s;
     }
-    cout<<s*modll(r2, MOD-2, MOD)%MOD<<endl;
+    cout<<s*modll(a, MOD-2, MOD)%MOD*modll(b, MOD-2, MOD)%MOD<<endl;
     return 0;
 }
