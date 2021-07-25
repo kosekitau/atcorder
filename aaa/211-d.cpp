@@ -10,44 +10,41 @@ using namespace std;
 using ll = long long;
 using Graph = vector<vector<int> >;
 using P = pair<int, int>;
-#define INF 2000000000
+#define INF 2000000001
 #define MOD 1000000007
 int main(){
-    int V, E, r, M;
-    struct edge {int to, cost; };
-    cin>>V>>M;
-    vector <edge> G[V];
-    int d[V];
-    ll md[V];
-    for(int i=0;i<V+1;i++) md[i]=0;
-    for(int i=0;i<M;i++){
-        int s,t;
-        cin>>s>>t;
-        edge e; e.to=t; e.cost=1;
-        G[s].push_back(e);
-        e.to=s; e.cost=1;
-        G[t].push_back(e);
+    int n, m;
+    cin>>n>>m;
+    vector<vector<int> > G(n, vector<int>(0));
+    for(int i=0;i<m;i++){
+        int a, b; cin>>a>>b;
+        a--; b--;
+        G[a].push_back(b);
+        G[b].push_back(a);
     }
+    int dist[n];
+    for(int i=0;i<n;i++) dist[i]=INF;
+    dist[0]=0;
+    int cnt[n];
+    for(int i=0;i<n;i++) cnt[i]=0;
+    cnt[0]=1;
+    queue<int> que;
+    que.push(0);
 
-    priority_queue<P, vector<P>, greater<P> > que;
-    fill(d, d+V, INF);
-    d[r]=0;
-    que.push(P(0, r));
     while(!que.empty()){
-        P p = que.top();
+        int v=que.front();
         que.pop();
-        int v = p.second;
-        if(d[v]<p.first) continue;
-        for(int i=0;i<G[v].size();i++){
-            edge e = G[v][i];
-            if(d[e.to]==d[v]+e.cost) md[e.to]=(md[e.to]+1)%MOD;
-            if(d[e.to]>d[v]+e.cost){
-                d[e.to]=d[v]+e.cost;
-                que.push( P(d[e.to], e.to) );
+        for(int vv: G[v]){
+            if(dist[vv]==INF){
+                dist[vv]=dist[v]+1;
+                que.push(vv);
+                cnt[vv]=cnt[v];
+            }
+            else if(dist[vv]==dist[v]+1){
+                cnt[vv]=(cnt[vv]+cnt[v])%MOD;
             }
         }
     }
-
-    cout<<md[V-1];
+    cout<<cnt[n-1]<<endl;
     return 0;
 }
