@@ -1,60 +1,48 @@
 #include <iostream>
+#include <cstdio>
 #include <cstring>
 #include <algorithm>
 #include <math.h>
+#include <vector>
+#include <queue>
+#include <functional>
+#include <map>
+#include <set>
 using namespace std;
 using ll = long long;
-int main(){
-    int n;
-    int a,b,c,d,e;
-    int A[3010],B[3010],C[3010],D[3010],E[3010];
-    cin>>n;
-    int ma=0, mb=0, mc=0,md=0,me=0;
-    int ia, ib, ic,id,ie; 
-    for(int i=0;i<n;i++){
-        cin>>a>>b>>c>>d>>e;
-        if(ma<a){
-            ma=a;
-            ia=i;
-            A[i]=a;
-        }
-        if(mb<b){
-            mb=b;
-            ib=i;
-            B[i]=b;
-        }
-        if(mc<c){
-            mc=c;
-            ic=i;
-            C[i]=c;
-        }
-        if(md<d){
-            md=d;
-            id=i;
-            D[i]=d;
-        }
-        if(me<e){
-            me=e;
-            ie=i;
-            E[i]=e;
-        }
-    }
-    int l[5]={ia,ib,ic,id,ie};
-    int ra,rb,rc,rd,re,r,result=0;
-    for(int i=0;i<3;i++){
-        for(int j=i+1;j<4;j++){
-            for(int k=j+1;k<5;k++){
-                ra=max(A[l[k]], max(A[l[i]], A[l[j]]));
-                rb=max(B[l[k]], max(B[l[i]], B[l[j]]));
-                rc=max(C[l[k]], max(C[l[i]], C[l[j]]));
-                rd=max(D[l[k]], max(D[l[i]], D[l[j]]));
-                re=max(E[l[k]], max(E[l[i]], E[l[j]]));
-                r = min(ra, min(rb, min(rc, min(rd,re))));
-                result = max(r, result);
-            }
-        }
-    }
-    cout<<result<<endl;
+using Graph = vector<vector<int> >;
+using P = pair<int, int>;
+#define INF 1100000000
+#define MOD 1000000007
 
-    return 0;
+int n;
+int x[3030][5];
+int cnt[1<<5];
+
+int getMask(int i, int lim){
+    int res=0;
+    for(int j=0;j<5;j++) if(lim<=x[i][j]) res+=1<<j;
+    return res;
+}
+
+bool check(int lim){
+    for(int i=0;i<(1<<5);i++) cnt[i]=0;
+    for(int i=0;i<n;i++) cnt[getMask(i, lim)]++;
+    for(int msk1=0;msk1<(1<<5);msk1++) for(int msk2=0;msk2<(1<<5);msk2++) for(int msk3=0;msk3<(1<<5);msk3++){
+        if((msk1|msk2|msk3)==(1<<5)-1 && 0<cnt[msk1] && 0<cnt[msk2] && 0<cnt[msk3]) return true;
+    }
+    return false;
+}
+
+int main(void){
+    cin>>n;
+    for(int i=0;i<n;i++) for(int j=0;j<5;j++) cin>>x[i][j];
+
+    int l=0, r=INF;
+    while(l+1!=r){
+        int mid = (l+r)/2;
+        if(check(mid)) l=mid;
+        else r=mid;
+    }
+    cout<<l<<endl;
 }
