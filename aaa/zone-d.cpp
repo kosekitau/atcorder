@@ -18,7 +18,25 @@ using P = pair<int, int>;
 int main(void){
     string s;
     cin>>s;
-    cout<<"s"+s<<endl;
-    cout<<s+"w"<<endl;
-    cout<<l<<endl;
+    string T="";
+    char pr='A';
+    bool f=true;
+    for(int i=0;i<s.length();i++){
+        if(s[i]=='R') {
+            //reverse(T.begin(), T.end());
+            f=(f+1)%2;
+            pr=T[T.length()-1];
+            continue;
+        }
+        if(s[i]==pr){
+            T.erase(T.length()-1);
+            pr=T[T.length()-1];
+        }
+        else{
+            T=T+s[i];
+            pr=s[i];
+        }
+    }
+    
+    cout<<T<<endl;
 }
