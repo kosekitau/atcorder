@@ -15,35 +15,41 @@ using P = pair<int, int>;
 int main(){
     int n;
     cin>>n;
-    int rc, a[n], idx=0;
-    cin>>rc;
-    a[idx]=1;
-    for(int i=2;i<=n;i++){
-        int c; cin>>c;
-        if(i%2){
-            if(c==rc){
-                a[idx]++;
-                rc=c;
-            }
-            else{
-                idx++;
-                a[idx]=1;
-                rc=c;
-            }
+    int rdx=0, a[n], lc, pc, inp;
+    for(int i=0;i<n;i++) a[i]=0;
+    cin>>inp;
+    a[rdx]++;
+    lc=pc=inp;
+    for(int i=1;i<n;i++){
+        cin>>inp;
+        if(inp==pc){
+            a[rdx]++;
+        }
+        //奇数
+        else if(i%2==0){
+            rdx++;
+            a[rdx]++;
+            pc=inp;
         }
         else{
-            if(c==rc){
-                a[idx]++;
+            if(rdx==0){
+                a[rdx]++;
+                lc=inp;
+                pc=inp;
             }
             else{
-                a[idx]++;
-                rc=(rc+1)%2;
+                a[rdx-1]+=(a[rdx]+1);
+                a[rdx]=0;
+                rdx--;
+                pc=inp;
             }
         }
     }
-    for(int i=0;i<=idx;i++){
-        cout<<a[i]<<' ';
-    }
-    cout<<endl;
+    int f=1;
+    if(lc) f=0;
+
+    int r=0;
+    for(int i=0;i<rdx+1;i++) if((i+f)%2) r+=a[i];
+    cout<<r<<endl;
     return 0;
 }
