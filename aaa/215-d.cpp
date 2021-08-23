@@ -10,14 +10,15 @@ using namespace std;
 using ll = long long;
 using Graph = vector<vector<int> >;
 using P = pair<int, int>;
-#define INF 2000000001
+#define INF 100010
 #define MOD 1000000007
+
 
 int main(){
     int n, m;
     cin>>n>>m;
-    int lst[m+1];
-    for(int i=1;i<=m;i++) lst[i]=0;
+    int lst[INF];
+    for(int i=1;i<INF;i++) lst[i]=0;
 
     for(int i=0;i<n;i++){
         int a; cin>>a;
@@ -29,9 +30,8 @@ int main(){
             }
         }
     }
-    
     int s=0;
-    int r[m+1];
+    int r[INF];
     for(int i=1;i<=m;i++){
         bool f=true;
         for(int j=2;j*j<=i;j++){
