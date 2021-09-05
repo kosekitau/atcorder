@@ -14,16 +14,19 @@ using P = pair<int, int>;
 #define INF 2000000003
 #define MOD 1000000007
 
+bool comp(string s){
+    string t(s.rbegin(),s.rend());
+    return s==t;
+}
+
 int main(){
     string s;
     cin>>s;
     
     int l=(s.length()-1)/2;
-    int r=(s.length()+3)/2;
-    bool f=true;
-    for(int i=0;i<l;i++) if(s[i]!=s[l-(i+1)]) f=false;
-    for(int i=0;i<l;i++) if(s[i+r-1]!=s[s.length()-(i+1)]) f=false;
-    if(f) cout<<"Yes"<<endl;
+    int r=(s.length()+1)/2;
+    
+    if( comp(s.substr(0,l)) && comp(s.substr(r)) && comp(s)) cout<<"Yes"<<endl;
     else cout<<"No"<<endl;
     return 0;
 }
