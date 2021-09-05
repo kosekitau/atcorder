@@ -15,30 +15,38 @@ using P = pair<int, int>;
 #define MOD 1000000007
 
 int main(){
-    int l, q;
-    cin>>l>>q;
-    set<int> L;
-    L.insert(0);
-    L.insert(l);
-    int cnt=0;
-    vector<int> r;
-    for(int i=0;i<q;i++){
-        int c, x;
-        cin>>c>>x;
-        if(c==1){
-            L.insert(x);
+    int Q;
+    cin>>Q;
+    queue<int> que;
+    priority_queue<int, vector<int>, greater<int>> pq;
+
+    int r[Q], cnt=0;
+    for(int i=0;i<Q;i++){
+        int q; cin>>q;
+        if(q==1){
+            int x; cin>>x;
+            que.push(x);
         }
-        else{
-            auto idx=L.lower_bound(x);
-            int b=*idx;
-            idx--;
-            int a=*idx;
-            r.push_back(b-a);
-            cnt++;
+        else if(q==2){
+            if(pq.empty()){
+                int z=que.front();
+                que.pop();
+                r[cnt++]=z;
+            }
+            else{
+                int z=pq.top();
+                pq.pop();
+                r[cnt++]=z;
+            }
+        }
+        else {
+            while(!que.empty()){
+                int z=que.front();
+                que.pop();
+                pq.push(z);
+            }
         }
     }
-    for(int i=0;i<cnt;i++){
-        cout<<r[i]<<endl;
-    }
+    for(int i=0;i<cnt;i++) cout<<r[i]<<endl;
     return 0;
 }
