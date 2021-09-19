@@ -13,36 +13,29 @@ using Graph = vector<vector<int> >;
 using P = pair<int, int>;
 #define INF 2000000003
 #define MOD 1000000007
-#define NUM 610
 
 int main(){
-    int n, x, y;
+    ll n, x, y;
     cin>>n;
     cin>>x>>y;
     ll A[n], B[n];
     for(int i=0;i<n;i++) cin>>A[i]>>B[i];
 
-    ll dp[n+1][NUM][NUM];
-    for(int i=0;i<=n;i++) for(int j=0;j<NUM;j++) for(int k=0;k<NUM;k++) dp[i][j][k]=INF;
+    ll dp[n+1][x+1][y+1];
+    for(int i=0;i<=n;i++) for(int j=0;j<=x;j++) for(int k=0;k<=y;k++) dp[i][j][k]=INF;
     dp[0][0][0]=0;
     
-    for(int i=0;i<n;i++){
-        for(int j=0;j<NUM;j++){
-            for(int k=0;k<NUM;k++){
-                if(A[i]<=j && B[i]<=k) dp[i+1][j][k] = min(dp[i][j-A[i]][k-B[i]]+1, dp[i][j][k]);
-                else dp[i+1][j][k] = dp[i][j][k];
+    for(ll i=0;i<n;i++){
+        for(ll j=0;j<=x;j++){
+            for(ll k=0;k<=y;k++){
+                dp[i+1][min(x, j+A[i])][min(y, k+B[i])] = min(dp[i+1][min(x, j+A[i])][min(y, k+B[i])], dp[i][j][k]+1);
+                dp[i+1][j][k] = min(dp[i+1][j][k], dp[i][j][k]);
             }
         }
     }
     
-    ll ans=INF;
-    for(int i=x;i<NUM;i++){
-        for(int j=y;j<NUM;j++){
-            ans=min(ans, dp[n][i][j]);
-        }
-    }
-    if(ans>300) cout<<-1<<endl;
-    else cout<<ans<<endl;
+    if(dp[n][x][y]==INF) cout<<-1<<endl;
+    else cout<<dp[n][x][y]<<endl;
     
     return 0;
 }
