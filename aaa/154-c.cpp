@@ -21,9 +21,13 @@ using P = pair<int, int>;
 int main(){
     int n;
     cin>>n;
-    
-    for(int i=0;i<s.size();i++) cout<<'x';
-    cout<<endl;
+    set<int> Set;
+    for(int i=0;i<n;i++){
+        int a; cin>>a;
+        Set.insert(a);
+    }
+    if(Set.size()!=n) cout<<"NO"<<endl;
+    else cout<<"YES"<<endl;
 
     return 0;
 }
