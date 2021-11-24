@@ -35,16 +35,13 @@ int main(){
             if(i==j) continue;
             int x=p[i].first-p[j].first;
             int y=p[i].second-p[j].second;
-            while(1){
-                if(x%2==1 && y%2==1) break;
-                if(x==0 || y==0){
-                    x=min(x, 1);
-                    y=min(y, 1);
-                    break;
-                }
-                x/=2; y/=2;
+            if(x==0) y=1;
+            else if(y==0) x=1;
+            else {
+                int g=gcd(x, y);
+                x/=g;
+                y/=g;
             }
-            cout<<x<<' '<<y<<endl;
             s.insert({x, y});
             s.insert({-x, -y});
         }
