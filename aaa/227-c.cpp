@@ -22,7 +22,15 @@ using P = pair<int, int>;
 int main(){
     ll n;
     cin>>n;
-    if() cout<< <<endl;
-    else cout<< <<endl;
+
+    ll ans=0;
+    for(ll a=1;a*a*a<=n;a++){
+        for(ll b=a;b*b<=n;b++){ 
+            ll c=n/(b*a);
+            if(b>c) break;
+            ans+=(c-b)+1;
+        }
+    }
+    cout<<ans<<endl;
     return 0;
 }
