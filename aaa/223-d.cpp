@@ -9,48 +9,53 @@
 #include <set>
 #include <tuple>
 #include <map>
+#include <numeric>
 
 using namespace std;
 using ll = long long;
-using Graph = vector<vector<int> >;
+using Graph = vector<vector<ll> >;
 using P = pair<int, int>;
+using PQ = priority_queue<int, vector<int>, greater<int>>;
 #define INF 2000000003
 #define MOD 998244353
-#define MAX_N 3001
+#define MAX_N 1010
 
 int main(){
     int n, m;
     cin>>n>>m;
-    
-    vector<P> p;
-    set<int> l, r;
-    for(int i=1;i<=n;i++) p.push_back({i, i});
+
+    int cnt[n];
+    vector<vector<int> >lst(n+1);
+    for(int i=0;i<=n;i++) cnt[i]=0;
     for(int i=0;i<m;i++){
         int a, b;
         cin>>a>>b;
-        auto itr1 = l.lower_bound(b);
-        auto itr2 = r.lower_bound(a);
-        if(*itr1==b && *itr2==a) {
-            cout<<-1<<endl;
-            return 0;
+        cnt[b]++;
+        lst[a].push_back(b);
+    }
+    
+    PQ pq;
+    vector<int> ans;
+    for(int i=1;i<=n;i++) if(cnt[i]==0) pq.push(i);
+
+    while(!pq.empty()){
+        int x=pq.top();
+        pq.pop();
+        ans.push_back(x);
+        for(int i=0;i<lst[x].size();i++){
+            int xx=lst[x][i];
+            cnt[xx]--;
+            if(cnt[xx]==0) pq.push(xx);
         }
-        l.insert(a);
-        r.insert(b);
-        if(a>b) p[b-1].first+=a;
-        
     }
 
-    for(int i=0;i<n;i++) {
-        if(p[i].first!=p[i].second){
-            p[i].first++;
-        }
+    if(ans.size()!=n){
+        cout<<-1<<endl;
+        return 0;
     }
-
-    sort(p.begin(), p.end());
-
-    for(int i=0;i<n;i++) {
-        if(i!=0) cout<<' '; 
-        cout<<p[i].second;
+    for(int i=0;i<ans.size();i++){
+        if(i!=0) cout<<' ';
+        cout<<ans[i];
     }
     cout<<endl;
     return 0;
